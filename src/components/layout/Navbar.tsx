@@ -39,6 +39,7 @@ export default function Navbar() {
     { name: "Tentang", href: "/tentang-kami" },
     { name: "Layanan", href: "/layanan" },
     { name: "Portofolio", href: "/portofolio" },
+    { name: "FAQ", href: "/faq" },
   ];
 
   const isDarkNavbar = isScrolled || pathname !== "/";
