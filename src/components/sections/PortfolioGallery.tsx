@@ -6,7 +6,7 @@ export default function PortfolioGallery({ limit }: { limit?: number }) {
   const displayPortfolio = limit ? portfolioData.slice(0, limit) : portfolioData;
 
   return (
-    <section className="py-20 bg-white">
+    <section className="py-20 bg-white md:snap-start md:min-h-screen flex flex-col justify-center">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
           <div className="max-w-2xl">

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { Building2, Menu, X } from "lucide-react";
 import { usePathname } from "next/navigation";
@@ -10,22 +10,24 @@ export default function Navbar() {
   const [isHidden, setIsHidden] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const pathname = usePathname();
+  const lastScrollY = useRef(0);
 
   useEffect(() => {
-    let lastScrollY = window.scrollY;
+    if (typeof window === "undefined") return;
+    lastScrollY.current = window.scrollY;
 
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
       setIsScrolled(currentScrollY > 20);
 
-      // Hide on scroll down, show on scroll up
-      if (currentScrollY > lastScrollY && currentScrollY > 100) {
-        setIsHidden(true); // scrolling down
-      } else if (currentScrollY < lastScrollY || currentScrollY <= 20) {
-        setIsHidden(false); // scrolling up or at top
+      // Hide if scrolling down past 50px, otherwise show
+      if (currentScrollY > lastScrollY.current && currentScrollY > 50) {
+        setIsHidden(true); 
+      } else {
+        setIsHidden(false); 
       }
       
-      lastScrollY = currentScrollY;
+      lastScrollY.current = currentScrollY;
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
@@ -39,15 +41,12 @@ export default function Navbar() {
     { name: "Portofolio", href: "/portofolio" },
   ];
 
-  // If scrolled, background is slate-900 (blackish), text is white
-  // If at top (transparent), background is transparent, text is slate-900
   const isDarkNavbar = isScrolled || pathname !== "/";
 
   return (
     <nav
-      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ease-in-out transform ${
-        isHidden ? "-translate-y-full" : "translate-y-0"
-      } ${
+      style={{ top: isHidden ? "-120px" : "0" }}
+      className={`fixed left-0 w-full z-50 transition-all duration-300 ease-in-out ${
         isDarkNavbar
           ? "bg-slate-900 shadow-lg py-3"
           : "bg-transparent py-5"

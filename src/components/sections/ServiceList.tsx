@@ -7,7 +7,7 @@ export default function ServiceList({ limit }: { limit?: number }) {
   const displayServices = limit ? servicesData.slice(0, limit) : servicesData;
 
   return (
-    <section className="py-20 bg-slate-50">
+    <section className="py-20 bg-slate-50 md:snap-start md:min-h-screen flex flex-col justify-center">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16 lg:mb-20">
           <h2 className="text-sm font-bold tracking-widest text-primary-600 uppercase mb-3">Layanan Kami</h2>

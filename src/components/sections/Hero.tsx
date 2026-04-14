@@ -4,7 +4,7 @@ import { companyData } from "@/data/company";
 
 export default function Hero() {
   return (
-    <section className="relative flex items-center pt-32 pb-24 md:pb-32">
+    <section className="relative flex items-center pt-32 pb-24 md:pb-32 md:snap-start md:min-h-screen">
       {/* Background Image with Dark Overlay - Banjarmasin Waters */}
       <div 
         className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat"
