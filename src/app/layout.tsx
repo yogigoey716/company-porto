@@ -21,7 +21,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="id" className="scroll-smooth md:snap-y md:snap-proximity">
+    <html lang="id" className="scroll-smooth">
       <body className={`${inter.variable} font-sans antialiased bg-slate-50 min-h-screen flex flex-col`}>
         <Navbar />
         <main className="flex-grow">

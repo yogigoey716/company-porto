@@ -55,8 +55,17 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 group">
-            <div className={`p-2 rounded ${isDarkNavbar ? "bg-primary-600" : "bg-primary-600"} text-white`}>
+          <Link 
+            href="/" 
+            onClick={(e) => {
+              if (pathname === "/") {
+                e.preventDefault();
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              }
+            }}
+            className="flex items-center gap-2 group"
+          >
+            <div className={`p-2 rounded bg-primary-600 text-white`}>
               <Building2 size={24} />
             </div>
             <div>
@@ -74,6 +83,12 @@ export default function Navbar() {
                 <Link
                   key={link.name}
                   href={link.href}
+                  onClick={(e) => {
+                    if (isActive && link.href === "/") {
+                      e.preventDefault();
+                      window.scrollTo({ top: 0, behavior: "smooth" });
+                    }
+                  }}
                   className={`text-sm font-medium transition-colors ${
                     isActive ? "text-primary-400" : "text-slate-200 hover:text-white"
                   }`}
@@ -110,16 +125,25 @@ export default function Navbar() {
       {isMobileMenuOpen && (
         <div className="md:hidden absolute top-full left-0 w-full bg-white shadow-lg border-t border-gray-100">
           <div className="px-4 pt-2 pb-6 space-y-1">
-            {navLinks.map((link) => (
-              <Link
-                key={link.name}
-                href={link.href}
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="block px-3 py-3 text-base font-medium text-slate-700 border-b border-gray-50 hover:bg-slate-50"
-              >
+            {navLinks.map((link) => {
+              const isActive = pathname === link.href;
+              return (
+                <Link
+                  key={link.name}
+                  href={link.href}
+                  onClick={(e) => {
+                    setIsMobileMenuOpen(false);
+                    if (isActive && link.href === "/") {
+                      e.preventDefault();
+                      window.scrollTo({ top: 0, behavior: "smooth" });
+                    }
+                  }}
+                  className="block px-3 py-3 text-base font-medium text-slate-700 border-b border-gray-50 hover:bg-slate-50"
+                >
                 {link.name}
               </Link>
-            ))}
+              );
+            })}
             <Link
               href="/kontak"
               onClick={() => setIsMobileMenuOpen(false)}
